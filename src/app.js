@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import routes from "./routes";
+import path from "path";
 
 class App {
   constructor() {
@@ -18,6 +19,10 @@ class App {
   }
 
   middlewares() {
+    this.server.use(
+      "/files",
+      express.static(path.resolve(__dirname, "..", "uploads"))
+    );
     this.server.use(express.json());
   }
 
