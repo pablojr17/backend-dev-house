@@ -1,6 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 import uploadConfig from "./config/upload";
+import DashboardController from "./controllers/DashboardController";
 import HouseController from "./controllers/HouseController";
 import SessionController from "./controllers/SessionController";
 
@@ -16,5 +17,7 @@ routes.put(
   HouseController.update
 );
 routes.delete("/houses", HouseController.destroy);
+
+routes.get("/dashboard", DashboardController.show);
 
 export default routes;
