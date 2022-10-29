@@ -3,6 +3,7 @@ import multer from "multer";
 import uploadConfig from "./config/upload";
 import DashboardController from "./controllers/DashboardController";
 import HouseController from "./controllers/HouseController";
+import ReserveController from "./controllers/ReserveController";
 import SessionController from "./controllers/SessionController";
 
 const routes = new Router();
@@ -19,5 +20,6 @@ routes.put(
 routes.delete("/houses", HouseController.destroy);
 
 routes.get("/dashboard", DashboardController.show);
+routes.post("/houses/:house_id/reserve", ReserveController.store);
 
 export default routes;
