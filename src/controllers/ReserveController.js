@@ -3,6 +3,13 @@ import Reserve from "../models/Reserve";
 import User from "../models/User";
 
 class ReserveController {
+  async index(req, res) {
+    const { user_id } = req.headers;
+    const reserve = await Reserve.find({ user: user_id }).populate("house");
+
+    return res.json(reserve);
+  }
+
   async store(req, res) {
     const { user_id } = req.headers;
     const { house_id } = req.params;
@@ -26,6 +33,18 @@ class ReserveController {
 
     await Promise.all([reserve.populate("house"), reserve.populate("user")]);
     return res.json(reserve);
+  }
+
+  async destroy(req, res) {
+    const { reserve_id } = req.body;
+
+    const reserve = await Reserve.findById(reserve_id);
+
+    if (!reserve)
+      return res.status(400).json({ error: "Essa reserva não existe." });
+
+    await Reserve.findByIdAndDelete({ _id: reserve_id });
+    return res.send();
   }
 }
 
